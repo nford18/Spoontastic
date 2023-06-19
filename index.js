@@ -61,10 +61,7 @@ passport.use(new GitHubStrategy({
 const port = 8080;
 
 //const Candy = require('./candy');
-//const candyRoutes = require('./candyRoutes')(app);
-
-const Spoon = require('./spoon')
-
+const apiRoutes = require('./candyRoutes')(app);
 
 app.get('/', function(req, res){
 	res.render('index', { user: req.user });
@@ -93,10 +90,6 @@ app.get('/logout', (req, res) => {
 	req.session.destroy((err) => {
 		res.redirect('/');
 	});
-});
-
-app.get('/spoonacularAPI', (req, res) =>{
-    res.send(json(Spoon))
 });
 
 app.listen(port, async () => { 
