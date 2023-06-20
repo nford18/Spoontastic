@@ -20,6 +20,7 @@
     "mongoose": "^7.3.0",
     "mongosh": "^1.10.0",
     "passport": "^0.6.0",
-    "passport-github2": "^0.1.12"
+    "passport-github2": "^0.1.12",
+    "pug": "^3.0.2"
   }
 }

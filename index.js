@@ -65,6 +65,8 @@ app.use(session({
 	store: sessionStore
 }));
 
+app.set('view engine', 'pug');
+
 sessionStore.on('error', function(error){
 	console.log(error);
 });
@@ -124,7 +126,7 @@ app.get('/verify',
 		console.log(err);
 	}
     });
-    res.redirect('/question');
+    res.redirect('/questions');
   });
 
 app.post('/answer', express.urlencoded({ extended: true }), (req, res) => {
