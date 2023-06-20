@@ -9,12 +9,12 @@ const json = require('json')
 
 app.use(express.static('public'));
 
-const uri = 'YOUR CONNECTION STRING' 
+const uri = 'mongodb+srv://leonajes:Th1s1sAGoodPassword@cluster0.cww2wjf.mongodb.net/' 
 
 const sessionStore = new MongoDBStore({
 	uri: uri,
 	ttl: 14 * 24 * 60 * 60,
-	collection: 'FIXME'
+	collection: 'Sessions'
 });
 
 app.use(session({ 
@@ -46,8 +46,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new GitHubStrategy({
-    clientID: "YOUR CLIENT ID",
-    clientSecret: "YOUR SECRET KEY",
+    clientID: "fa1edf7ce9b32fe3d80c",
+    clientSecret: "c623dea0b8e1b9086dfa6c002c79e76338945327",
     callbackURL: "http://localhost:8080/verify",
     scope: [ 'user:email' ],
   },
@@ -60,11 +60,8 @@ passport.use(new GitHubStrategy({
 
 const port = 8080;
 
-//const Candy = require('./candy');
-//const candyRoutes = require('./candyRoutes')(app);
-
-const Spoon = require('./spoon')
-
+const spoon = require('./spoon')
+const apiRoutes = require('./apiRoutes')(app);
 
 app.get('/', function(req, res){
 	res.render('index', { user: req.user });
@@ -93,10 +90,6 @@ app.get('/logout', (req, res) => {
 	req.session.destroy((err) => {
 		res.redirect('/');
 	});
-});
-
-app.get('/spoonacularAPI', (req, res) =>{
-    res.send(json(Spoon))
 });
 
 app.listen(port, async () => { 
