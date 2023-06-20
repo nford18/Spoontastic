@@ -9,12 +9,12 @@ const json = require('json')
 
 app.use(express.static('public'));
 
-const uri = 'YOUR CONNECTION STRING' 
+const uri = 'mongodb+srv://leonajes:Th1s1sAGoodPassword@cluster0.cww2wjf.mongodb.net/' 
 
 const sessionStore = new MongoDBStore({
 	uri: uri,
 	ttl: 14 * 24 * 60 * 60,
-	collection: 'FIXME'
+	collection: 'Sessions'
 });
 
 app.use(session({ 
@@ -61,7 +61,7 @@ passport.use(new GitHubStrategy({
 const port = 8080;
 
 //const Candy = require('./candy');
-const apiRoutes = require('./candyRoutes')(app);
+const apiRoutes = require('./apiRoutes')(app);
 
 app.get('/', function(req, res){
 	res.render('index', { user: req.user });
