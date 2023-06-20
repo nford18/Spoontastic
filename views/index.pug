@@ -16,7 +16,7 @@ html
       h2 Enter Search Terms:
         form(autocomplete="off" action="/spoonacularAPI/"+foodSearch method="GET")
           input(type="text" name="foodSearch" id="foodSearch") 
-          input(type="submit" value="Search")
+          button(onclick=`tryAPI(${foodSearch})`) Search
       #results
         ul(id="resultsList")
 include footer.pug

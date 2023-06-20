@@ -50,7 +50,7 @@ function readCSVFile() {
 
 app.use(express.static('public'));
 
-const uri = 'mongodb+srv://leonajes:Th1s1sAGoodPassword@cluster0.cww2wjf.mongodb.net/' 
+const uri = 'mongodb+srv://leonajes:Th1s1sAGoodPassword@cluster0.cww2wjf.mongodb.net/371Project' 
 
 const sessionStore = new MongoDBStore({
 	uri: uri,
