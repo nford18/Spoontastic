@@ -1,9 +1,23 @@
 include header.pug
-unless !user
-  h2 Enter Search Terms:
-    form(autocomplete="off")
-      input(type="text" name="foodSearch" id="foodSearch") 
-      input(type="submit")
-  #results
-    ul(id="resultsList")
+html
+  head
+    meta(charset='utf-8')
+    title Spoontastic
+    link(rel="stylesheet" href="./main.css")
+  body
+    header
+      nav
+        ul
+          li
+            a(href='/') Home
+          li
+            a(href='/login') Login
+    unless !user
+      h2 Enter Search Terms:
+        form(autocomplete="off" action="/spoonacularAPI/"+foodSearch method="GET")
+          input(type="text" name="foodSearch" id="foodSearch") 
+          input(type="submit" value="Search")
+      #results
+        ul(id="resultsList")
 include footer.pug
+
