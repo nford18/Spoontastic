@@ -1,0 +1,52 @@
+html
+  head
+    title= title
+    style.
+      body {
+        margin-top: 0px,
+        margin-left: auto ,
+        margin-right: auto
+      }
+      
+      #leftmenu {
+        float: left ,
+        width: 30%,
+        margin-bottom: 20px
+      }
+
+      nav {
+        height: 60px,
+        width: 1000px,
+        margin: 0 auto 20px,
+        display:block
+      }
+
+      nav>ul {
+        list-style-type: none,
+        margin:0,
+        padding: 10
+
+      }
+      nav>ul>li {
+        float: left,
+      }
+      header {
+      background-color: #ffff33,
+      display:block
+      }
+      
+  body
+  header  
+    nav
+      ul
+        li
+          a(href='/') Home
+        li
+          a(href='/login') Login
+    #welcome
+    if user
+      h1= 'Welcome ' + user.displayName +'!'
+      a(href='/logout') Logout
+    else
+      h1 Welcome!  Please login.
+      a(href='/auth/github') Login with Github
