@@ -3,11 +3,13 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
+const HttpStrategy = require('passport-http').BasicStrategy;
 const MongoDBStore = require('connect-mongodb-session')(session);
 const app = express();
 const json = require('json')
 const fs = require('fs');
 const csv = require('csv-parser');
+const pbkdf2 = require('pbkdf2')
 
 let questions = [];
 let currentQuestion;
@@ -101,20 +103,39 @@ passport.use(new GitHubStrategy({
 	}
 ));
 
+passport.use(new HttpStrategy({callbackURL: "http://localhost:8080/"},
+async function(userid, password, done) {
+	const user = await User.findOne({username: userid})
+	if(!user) {
+		console.log("Username not registered.");
+		return done(null, false);
+	} else if(!(await verifyPassword(password, user.salt, user.password))) {
+		console.log("Password does not match.");
+		return done(null, false);
+	}
+}));
+async function verifyPassword(input, salt, saltedPassword){
+	let saltedInput = await pbkdf2.pbkdf2Sync(input, salt, 1, 32, 'sha512').toString('hex')
+	if(saltedInput === saltedPassword){
+		return true;
+	}
+	return false
+}
+
 const port = 8080;
 
 const spoon = require('./spoon')
 const apiRoutes = require('./apiRoutes')(app);
 
 app.get('/', function(req, res){
-	res.render('index', { user: req.user });
+	res.status(200).render('index', { user: req.user });
+});
+
+app.get('/login', (req, res) => {
+	res.status(200).render('login');
 });
 
 app.get('/auth/github', passport.authenticate('github'));
-
-app.get('/login', (req, res) => {
-	res.status(300).redirect("/auth/github");
-});
 
 app.get('/verify',
   passport.authenticate('github', { failureRedirect: '/login' }),
@@ -132,20 +153,22 @@ app.get('/verify',
 app.post('/answer', express.urlencoded({ extended: true }), (req, res) => {
 	const userAnswer = req.body.userAnswer;
 	const correctAnswer = currentQuestion.answer;
-  
+	
 	if (userAnswer === correctAnswer) {
-	  res.redirect('/');
+		res.redirect('/');
 	} else {
-	  currentQuestion = getRandomQuestion();
-	  const questionText = currentQuestion.question;
-	  res.send(`
-		<h1>${questionText}</h1>
-		<form action="/answer" method="POST">
-		  <input type="text" name="userAnswer" required>
-		  <button type="submit">Submit</button>
-		</form>
-		<p>Incorrect answer. Try again.</p>
-	  `);
+		currentQuestion = getRandomQuestion();
+		const questionText = currentQuestion.question;
+		res.render('question', {questionText: questionText, initLoad: false});
+		// .send('<p>Incorrect answer. Try again.</p>');
+	//   .send(`
+	// 	<h1>${questionText}</h1>
+	// 	<form action="/answer" method="POST">
+	// 	  <input type="text" name="userAnswer" required>
+	// 	  <button type="submit">Submit</button>
+	// 	</form>
+	// 	<p>Incorrect answer. Try again.</p>
+	//   `);
 	}
 });
 
@@ -156,13 +179,14 @@ app.get('/questions', (req, res) => {
 	}
   
 	const questionText = currentQuestion.question;
-	res.send(`
-	  <h1>${questionText}</h1>
-	  <form action="/answer" method="POST">
-		<input type="text" name="userAnswer" required>
-		<button type="submit">Submit</button>
-	  </form>
-	`);
+	res.render('question', {questionText: questionText, initLoad: true});
+	// .send(`
+	//   <h1>${questionText}</h1>
+	//   <form action="/answer" method="POST">
+	// 	<input type="text" name="userAnswer" required>
+	// 	<button type="submit">Submit</button>
+	//   </form>
+	// `);
   });
 
 app.get('/logout', (req, res) => {

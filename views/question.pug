@@ -1,0 +1,10 @@
+include header.pug
+html
+head 
+body
+    h1= questionText
+    form(action='/answer', method='POST')
+        input(type='text', name='userAnswer', required='') 
+        button(type='submit') Submit
+    if !initLoad
+        p Incorrect answer. Try again.	  

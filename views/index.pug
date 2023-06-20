@@ -10,8 +10,13 @@ html
       }
     script(src='apiRoutes.js')
   body
-    header
-      
+    header(id="welcome")
+      if user
+        h1= 'Welcome ' + user.displayName +'!'
+      else
+        h1 Welcome!  Please login.
+        //- a(href='/auth/github') Login with Github
+
     unless !user
       h2 Enter Search Terms:
         form(autocomplete="off" method="GET" action=`/spoonacularAPI` enctype="x-www-form-urlencoded")

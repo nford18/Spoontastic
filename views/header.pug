@@ -2,37 +2,57 @@ html
   head
     title= title
     style.
+      body {
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+      }
       nav {
-        height: 60px,
-        width: 1000px,
-        margin: 0 auto 20px
+        height: 60px;
+        width: 100%;
+        margin: 0 auto 20px;
+        display: block inline
       }
       nav>ul {
-        list-style-type: none,
-        margin:0,
+        list-style-type: none;
+        margin:0;
         padding: 10
 
       }
       nav>ul>li {
-        float: left
-        list-style-type: none
+        float: left;
+        //- border-color: black;
+        //- border-width: 1px
       }
-      header {
-      background-color: #ffff33
+
+      nav>ul>li a {
+        display: inline-block;
+        color: white;
+        text-align: left ;
+        padding: 0.5em 1em 1em 1em;
+        text-decoration: none ;
+        font-weight: bold;
+        font-size: 14pt
+      }
+      header.navbar {
+        background-color: #0033A0;
+        width: 100%
       }
       
   body
-  header  
+  header(class="navbar")
     nav
       ul
         li
           a(href='/') Home
         li
-          a(href='/login') Login
-    #welcome
-    if user
-      h1= 'Welcome ' + user.displayName +'!'
-      a(href='/logout') Logout
-    else
-      h1 Welcome!  Please login.
-      a(href='/auth/github') Login with Github
+          if user
+            a(href='/logout') Logout
+          else
+            a(href='/login') Login
+        li
+          if user
+            a(href='/account/'+user.username) Account 
+          else 
+            a(href='/login') Account 
+    
