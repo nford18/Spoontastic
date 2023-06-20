@@ -1,5 +1,6 @@
 const spoon = require('./spoon');
 const passport = require('passport');
+const json = require('json')
 
 function checkAuth(req, res, next){
 	if(req.session.user){
@@ -19,14 +20,21 @@ const options = {
 module.exports = function(app){
 
     app.get('/spoonacularAPI/:food', (req, res) =>{
-        res.send(json(spoon(req.params)))
+        res.send((tryAPI(req.params)).json)
     });
 
 	async function tryAPI(query){try {
 		console.log(query)
 		const response = await fetch((url + query), options);
-		const result = await response.text();
-		console.log(result);
+		const result = await response.json();
+	let html = document.getElementById("results");
+	html.innerHTML = "<ul id ='listResults'>";
+	for(let i=0; i<json.length; ++i){
+		console.log(json[i]);
+		html.innerHTML += '<li>'+json[i].competitorname+'</li>';
+	}
+	html.innerHtml += "</ul>";
+	console.log(result);
 	} catch (error) {
 		console.error(error);
 	}}

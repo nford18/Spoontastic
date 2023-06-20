@@ -7,8 +7,16 @@ const options = {
 };
 async function tryAPI(query){try {
 	const response = await fetch((url + query), options);
-	const result = await response.text();
+	const result = await response.json();
+	let html = document.getElementById("results");
+	html.innerHTML = "<ul id ='listResults'>";
+	for(let i=0; i<json.length; ++i){
+		console.log(json[i]);
+		html.innerHTML += '<li>'+json[i].competitorname+'</li>';
+	}
+	html.innerHtml += "</ul>";
 	console.log(result);
+
 } catch (error) {
 	console.error(error);
 }}
