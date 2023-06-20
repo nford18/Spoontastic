@@ -1,4 +1,3 @@
-//const Candy = require('./candy');
 const spoon = require('./spoon');
 const passport = require('passport');
 
@@ -12,7 +11,7 @@ function checkAuth(req, res, next){
 module.exports = function(app){
 
     app.get('/spoonacularAPI/:food', (req, res) =>{
-        res.send(json(Spoon(req.params)))
+        res.send(json(spoon(req.params)))
     });
 
 	// app.get('/candy/:name',  checkAuth, async (req, res) => {
