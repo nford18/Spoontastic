@@ -4,6 +4,11 @@ html
     meta(charset='utf-8')
     title Spoontastic
     link(rel="stylesheet" href="./main.css")
+    style.
+      button {
+        margin-left: 20px
+      }
+    script(src='myscripts.js')
   body
     header
       
@@ -11,7 +16,7 @@ html
       h2 Enter Search Terms:
         form(autocomplete="off")
           input(type="text" name="foodSearch" id="foodSearch") 
-          input(type="submit" value="Search")
+          button(onclick=`tryAPI("pasta"))`) Search
       #results
         ul(id="resultsList")
 include footer.pug

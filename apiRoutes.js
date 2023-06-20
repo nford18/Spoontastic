@@ -18,11 +18,12 @@ const options = {
 
 module.exports = function(app){
 
-    // app.get('/spoonacularAPI/:food', (req, res) =>{
-    //     res.send(json(spoon(req.params)))
-    // });
+    app.get('/spoonacularAPI/:food', (req, res) =>{
+        res.send(json(spoon(req.params)))
+    });
 
 	async function tryAPI(query){try {
+		console.log(query)
 		const response = await fetch((url + query), options);
 		const result = await response.text();
 		console.log(result);
