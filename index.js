@@ -60,7 +60,7 @@ passport.use(new GitHubStrategy({
 
 const port = 8080;
 
-//const Candy = require('./candy');
+const spoon = require('./spoon')
 const apiRoutes = require('./apiRoutes')(app);
 
 app.get('/', function(req, res){

@@ -13,4 +13,4 @@ async function tryAPI(query){try {
 	console.error(error);
 }}
 
-module.exports = tryAPI(input)
+module.exports = tryAPI
