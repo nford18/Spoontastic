@@ -8,16 +8,16 @@ html
       button {
         margin-left: 20px
       }
-    script(src='myscripts.js')
+    script(src='apiRoutes.js')
   body
     header
       
     unless !user
       h2 Enter Search Terms:
-        form(autocomplete="off" method="GET" action=`/spoonacularAPI/foodSearch` enctype="x-www-form-urlencoded")
+        form(autocomplete="off" method="GET" action=`/spoonacularAPI` enctype="x-www-form-urlencoded")
           input(type="text" name="foodSearch" id="foodSearch") 
-          button(type="submit") Search
+          input(type="submit")
       #results
-        ul(id="resultsList")
+        ul(id="listResults")
 include footer.pug
 
