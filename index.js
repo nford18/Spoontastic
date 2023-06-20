@@ -46,8 +46,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(new GitHubStrategy({
-    clientID: "YOUR CLIENT ID",
-    clientSecret: "YOUR SECRET KEY",
+    clientID: "fa1edf7ce9b32fe3d80c",
+    clientSecret: "c623dea0b8e1b9086dfa6c002c79e76338945327",
     callbackURL: "http://localhost:8080/verify",
     scope: [ 'user:email' ],
   },
