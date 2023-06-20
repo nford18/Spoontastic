@@ -113,7 +113,7 @@ app.get('/', function(req, res){
 app.get('/auth/github', passport.authenticate('github'));
 
 app.get('/login', (req, res) => {
-	res.send('You must login.');
+	res.status(300).redirect("/auth/github");
 });
 
 app.get('/verify',

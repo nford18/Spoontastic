@@ -1,12 +1,38 @@
 html
   head
     title= title
-    link(rel='stylesheet', type='text/css', href='/main.css')
+    style.
+      nav {
+        height: 60px,
+        width: 1000px,
+        margin: 0 auto 20px
+      }
+      nav>ul {
+        list-style-type: none,
+        margin:0,
+        padding: 10
+
+      }
+      nav>ul>li {
+        float: left
+        list-style-type: none
+      }
+      header {
+      background-color: #ffff33
+      }
+      
   body
+  header  
+    nav
+      ul
+        li
+          a(href='/') Home
+        li
+          a(href='/login') Login
     #welcome
-      if user
-        h1= 'Welcome ' + user.displayName +'!'
-        a(href='/logout') Logout
-      else
-        h1 Welcome!  Please login.
-        a(href='/auth/github') Login with Github
+    if user
+      h1= 'Welcome ' + user.displayName +'!'
+      a(href='/logout') Logout
+    else
+      h1 Welcome!  Please login.
+      a(href='/auth/github') Login with Github
