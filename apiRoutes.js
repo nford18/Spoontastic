@@ -19,19 +19,22 @@ const options = {
 
 module.exports = function(app){
 
-    app.get('/spoonacularAPI/:food', (req, res) =>{
-        res.send((tryAPI(req.params)).json)
+    app.get('/spoonacularAPI/', (req, res) =>{
+        res.send((tryAPI()))
     });
 
-	async function tryAPI(query){try {
-		console.log(query)
-		const response = await fetch((url + query), options);
+	async function tryAPI(){try {
+		console.log("Hello there")
+        console.log(document)
+        const input = document.getElementById("foodSearch").value
+        console.log(input)
+		const response = await fetch((url + input), options);
 		const result = await response.json();
 	let html = document.getElementById("results");
 	html.innerHTML = "<ul id ='listResults'>";
 	for(let i=0; i<json.length; ++i){
 		console.log(json[i]);
-		html.innerHTML += '<li>'+json[i].competitorname+'</li>';
+		html.innerHTML += '<li>'+json[i]+'</li>';
 	}
 	html.innerHtml += "</ul>";
 	console.log(result);
